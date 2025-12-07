@@ -20,14 +20,44 @@ public class CruddemoApplication {
 		return (runner) -> {
 			// createStudent(studentDAO);
 
-			// createMultipleStudents(studentDAO);
+			createMultipleStudents(studentDAO);
 
 			// readStudent(studentDAO);
 
 			// queryForStudents(studentDAO);
 
-			queryForStudentsByLastName(studentDAO);
+			// queryForStudentsByLastName(studentDAO);
+
+			// updateStudent(studentDAO);
+
+			// deleteStudent(studentDAO);
+
+			// deleteAllStudent(studentDAO);
 		};
+	}
+
+	private void deleteAllStudent(StudentDAO studentDAO) {
+		System.out.println("Deleting all students");
+		int numRowsDeleted = studentDAO.deleteAll();
+		System.out.println("Deleted row count:" + numRowsDeleted);
+	}
+
+	private void deleteStudent(StudentDAO studentDAO) {
+		int studentId = 2;
+		System.out.println("Deleting student id: " + studentId);
+		studentDAO.delete(studentId);
+	}
+
+	private void updateStudent(StudentDAO studentDAO) {
+		int studentId = 1;
+		System.out.println("Getting student with id: " + studentId);
+		Student student = studentDAO.findById(studentId);
+
+		System.out.println("Updating student...");
+		student.setFirstName("James");
+
+		studentDAO.update(student);
+		System.out.println("Updated student: " + student);
 	}
 
 	private void queryForStudentsByLastName(StudentDAO studentDAO) {
@@ -46,7 +76,7 @@ public class CruddemoApplication {
 	}
 
 	private void readStudent(StudentDAO studentDAO) {
-		System.err.println("Creating new student object...");
+		System.out.println("Creating new student object...");
 		Student student = new Student("Jimmy", "Mcgill", "test4@gmail.com");
 
 		System.out.println("Saving the student...");
@@ -61,7 +91,7 @@ public class CruddemoApplication {
 	}
 
 	private void createMultipleStudents(StudentDAO studentDAO) {
-		System.err.println("Creating new student object...");
+		System.out.println("Creating new student object...");
 		Student student1 = new Student("Jhon", "Which", "test1@gmail.com");
 		Student student2 = new Student("Leonel", "Messi", "test2@gmail.com");
 		Student student3 = new Student("Sam", "Harris", "test3@gmail.com");
@@ -73,7 +103,7 @@ public class CruddemoApplication {
 	}
 
 	private void createStudent(StudentDAO studentDAO) {
-		System.err.println("Creating new student object...");
+		System.out.println("Creating new student object...");
 		Student student = new Student("Kim", "Wexler", "test7@gmail.com");
 
 		System.out.println("Saving the student...");
