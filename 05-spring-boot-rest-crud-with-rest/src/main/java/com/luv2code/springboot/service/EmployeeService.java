@@ -1,9 +1,9 @@
-package com.luv2code.springboot.dao;
+package com.luv2code.springboot.service;
 
 import java.util.List;
 import com.luv2code.springboot.entity.Employee;
 
-public interface EmployeeDAO {
+public interface EmployeeService {
   List<Employee> findAll();
 
   Employee findById(int id);
