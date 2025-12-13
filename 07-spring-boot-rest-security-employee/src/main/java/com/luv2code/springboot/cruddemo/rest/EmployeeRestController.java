@@ -69,11 +69,12 @@ public class EmployeeRestController {
         return dbEmployee;
     }
 
-    // add mapping for PATCH /employees/{employeeId} - patch employee ... partial update
+    // add mapping for PATCH /employees/{employeeId} - patch employee ... partial
+    // update
 
     @PatchMapping("/employees/{employeeId}")
     public Employee patchEmployee(@PathVariable int employeeId,
-                                  @RequestBody Map<String, Object> patchPayload) {
+            @RequestBody Map<String, Object> patchPayload) {
 
         Employee tempEmployee = employeeService.findById(employeeId);
 
@@ -127,17 +128,3 @@ public class EmployeeRestController {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

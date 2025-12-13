@@ -17,10 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
-
-@RestController
-@RequestMapping("/api")
 public class EmployeeRestController {
 
   private EmployeeService employeeService;
