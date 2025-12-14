@@ -1,12 +1,17 @@
 package com.luv2code.cruddemo.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.luv2code.cruddemo.entity.Course;
 import com.luv2code.cruddemo.entity.Instructor;
+import com.luv2code.cruddemo.entity.InstructorDetail;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
 @Repository
 public class AppDAOImpl implements AppDAO {
@@ -32,6 +37,41 @@ public class AppDAOImpl implements AppDAO {
   @Transactional
   public void deleteInstructorById(int id) {
     Instructor instructor = entityManager.find(Instructor.class, id);
+
     entityManager.remove(instructor);
+  }
+
+  @Override
+  public InstructorDetail findInstructorDetailById(int id) {
+    return entityManager.find(InstructorDetail.class, id);
+  }
+
+  @Override
+  @Transactional
+  public void deleteInstructorDetailById(int id) {
+    InstructorDetail instructorDetail = entityManager.find(InstructorDetail.class, id);
+
+    instructorDetail.getInstructor().setInstructorDetail(null);
+
+    entityManager.remove(instructorDetail);
+  }
+
+  @Override
+  public List<Course> findCoursesByInstructorId(int id) {
+    TypedQuery<Course> query =
+        entityManager.createQuery("FROM Course WHERE instructor.id = :data", Course.class);
+    query.setParameter("data", id);
+
+    return query.getResultList();
+  }
+
+  @Override
+  public Instructor findInstructorByIdJoinFetch(int id) {
+    TypedQuery<Instructor> query =
+        entityManager.createQuery("SELECT i FROM instructor i " + "JOIN FETCH i.courses "
+            + "JOIN FETCH i.instructorDetail" + "WHERE i.id = :data", Instructor.class);
+
+    query.setParameter("data", id);
+    return query.getSingleResult();
   }
 }
